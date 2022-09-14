@@ -6,7 +6,7 @@ from dotenv import load_dotenv # for loading stuff from the .env file
 load_dotenv()
 
 bot_TKN = os.environ('BOT_TOKEN')
-channel_ID = os.environ('_CHANNELID')
+channel_ID = os.environ('CHANNELID')
 
 intents = discord.Intents.default()
 intents.message_content = True
