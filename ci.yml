@@ -1,6 +1,0 @@
-name: exec SoupBot
-env:
-  BOT_TOKEN: $ {{ secrets.BOT_TOKEN }}
-  CHANNELID: $ {{ secrets.CHANNELID }}
-run: | 
-  SoupBot.py
