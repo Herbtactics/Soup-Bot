@@ -1,9 +1,6 @@
 import discord   
 from discord.ext import commands
 import os
-from dotenv import load_dotenv # for loading stuff from the .env file
-
-load_dotenv()
 
 bot_TKN = os.environ['BOT_TOKEN'] # or bot_TKN = os.environ.get('BOT_TOKEN')
 channel_ID = os.environ['CHANNELID']
