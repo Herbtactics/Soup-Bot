@@ -1,1 +1,1 @@
-worker: python SoupBot.py
+worker: python SoupBot_virtual.py
