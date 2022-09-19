@@ -36,7 +36,7 @@ async def on_message(message):
     if message.author == client.user:
         return
 
-    if soup_channel_id == int(channel_ID) and 'premade' in message.content.lower():
+    if soup_channel_id == channel_ID and 'premade' in message.content.lower():
         await soup_channel.send('Getting ingredients...')
         await sv.custom_process()
         await soup_channel.send(file=discord.File(sv.location))
