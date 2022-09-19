@@ -36,17 +36,17 @@ async def on_message(message):
     if message.author == client.user:
         return
 
-    if soup_channel_id == channel_ID and 'premade' in message.content.lower():
+    if soup_channel_id == int(channel_ID) and 'premade' in message.content.lower():
         await soup_channel.send('Getting ingredients...')
         await sv.custom_process()
         await soup_channel.send(file=discord.File(sv.location))
         await soup_channel.send(sv.result_name)
         await sv.delete()
 
-    if soup_channel_id == channel_ID and 'custom' in message.content.lower():
+    if soup_channel_id == int(channel_ID) and 'custom' in message.content.lower():
         await soup_channel.send('Input your ingredients...')
     
-    if soup_channel_id == channel_ID and 'clear' in message.content.lower():
+    if soup_channel_id == int(channel_ID) and 'clear' in message.content.lower():
         await message.channel.send('clearing...')
         await asyncio.sleep(3)
         await message.channel.purge()
