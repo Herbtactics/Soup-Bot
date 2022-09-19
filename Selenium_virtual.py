@@ -1,17 +1,10 @@
-from lib2to3.pgen2 import driver
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-from selenium.webdriver import ActionChains
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-import time
 import random
 import urllib
 import urllib.request
 import os
-import pyautogui
-import re
 
 chrome_options = webdriver.ChromeOptions()
 chrome_options.binary_location = os.environ.get('GOOGLE_CHROME_BINARY')
@@ -22,11 +15,13 @@ driver = webdriver.Chrome(executable_path=os.environ.get('CHROMEDRIVER_PATH'), c
 
 result = ''
 result_name = ''
+location = ''
 
 # PREMADE PRESET
 async def premade_process():
     global result
     global result_name
+    global location
 
     # Opening Google on Chrome browser
     driver.get("https://www.google.com/imghp?hl=en&ogbl")
@@ -54,117 +49,12 @@ async def premade_process():
         img_num = random.randint(0, len(img))
     else:
         img_num = random.randint(0, 9)
-    img[img_num].click()
+    location = 'C:\\' + str(img_num) + '.png'
+    img[img_num].screenshot(location)
 
-    action = ActionChains(driver)
-    right_side_pic = driver.find_elements(By.CLASS_NAME, "eHAdSb")
-    for index in range(0, len(right_side_pic)):
-        try:
-            action.context_click(right_side_pic[index]).perform()
-        except:
-            continue
-        else:
-            time.sleep(0.2)
-            for times in range(0,3):
-                pyautogui.hotkey("up")
-            time.sleep(1)
-            pyautogui.hotkey("enter")
-
-    # enter url back into search bar
-    search = driver.find_element(By.NAME, "q")
-    search.clear()
-    search.click()
-    pyautogui.hotkey("ctrl","v")
-    search.send_keys(Keys.RETURN)
-
-    # get url value/link
-    search = driver.find_element(By.NAME, "q")
-    paste = search.get_attribute('value')
-
-    # if url value is not jpg repeat function
-    match = re.search(r'.jpg', str(paste))
-    if match:
-        print('jpg')
-        result = str(paste)
-        return result
-        driver.quit()
-    else:
-        print('not jpg')
-        result = str(paste)
-        print(result)
-        driver.close()
-        await premade_process()
-
-# CUSTOM PRESET
-async def custom_process():
-    global result
-
-    # What does soup bot do:
-
-    # Take inputs from discord chat (i.e. chicken, noddle)
-    # string = ""
-
-    # # Add inputs into a list
-    # input_list = []
-    # input_list.append(string)
-
-    # # Compile them into a single string variable
-    # single_string = ""
-    # for index in range(0, len(list)):
-    #     single_string += (list[index] + " ")
-
-    # Put the variable into a Google images search tab       
-
-    # Opening Google on Chrome browser
-    driver.get("https://www.google.com/imghp?hl=en&ogbl")
-    driver.maximize_window()
-
-    # Putting variable into search bar
-    search = driver.find_element(By.NAME, "q")
-    search.send_keys("chicken noodle soup") # Replace with single_string
-    search.send_keys(Keys.RETURN)
-
-    # Takes a random image and gets its url
-    picture_number = random.randint(1, 10)
-    img = driver.find_elements(By.CLASS_NAME, "rg_i")
-    img_num = 0
-    if len(img) < 10:
-        img_num = random.randint(0, len(img))
-    else:
-        img_num = random.randint(0, 9)
-    img[img_num].click()
-
-    action = ActionChains(driver)
-    right_side_pic = driver.find_elements(By.CLASS_NAME, "eHAdSb")
-    for index in range(0, len(right_side_pic)):
-        try:
-            action.context_click(right_side_pic[index]).perform()
-        except:
-            continue
-        else:
-            time.sleep(0.2)
-            for times in range(0,3):
-                pyautogui.hotkey("up")
-            time.sleep(1)
-            pyautogui.hotkey("enter")
-
-    # enter url back into search bar
-    search = driver.find_element(By.NAME, "q")
-    search.clear()
-    search.click()
-    pyautogui.hotkey("ctrl","v")
-    search.send_keys(Keys.RETURN)
-
-    # get url value/link
-    search = driver.find_element(By.NAME, "q")
-    paste = search.get_attribute('value')
-
-    # if url value is not jpg repeat function
-    match = re.search(r'.jpg', str(paste))
-    if match:
-        print('jpg')
-        result = str(paste)
-        return result
-    else:
-        print('not jpg')
-        custom_process()
+async def delete():
+    path = 'C:\\'
+    for (root, dirs, file) in os.walk(path):
+        for f in file:
+            if '.png' in f:
+                os.remove(path + f)

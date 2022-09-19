@@ -171,6 +171,10 @@ async def custom_process():
         print('jpg')
         result = str(paste)
         return result
+        driver.quit()
     else:
         print('not jpg')
-        custom_process()
+        result = str(paste)
+        print(result)
+        driver.close()
+        await custom_process()
