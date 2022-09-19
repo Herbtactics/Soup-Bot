@@ -28,7 +28,7 @@ async def on_ready(): # on_ready is a api function tht signals tht a connection 
 @commands.has_permissions(send_messages=True, manage_channels=True)
 async def on_message(message):
 
-    server = discord.utils.get(client.guilds, name = server_NAME)
+    server = discord.utils.get(client.guilds, name = str(server_NAME))
     soup_channel = discord.utils.get(server.channels, name= channel_NAME)
 
     soup_channel_id = message.channel.id
